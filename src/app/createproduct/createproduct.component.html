@@ -1,0 +1,404 @@
+<app-loader *ngIf="loaderbool"></app-loader>
+<app-header></app-header>
+<!-- -->
+
+<!-- <div class="content-wrapper">
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Create Product</h1>
+        </div>
+        
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Add Product</li>
+          </ol>
+        </div>
+       
+      </div>
+      
+    </div>
+    
+  </div>
+  <div class="card card-primary">
+    
+    <form role="form" #uploadbannerform="ngForm">
+      <div class="card-body">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Name</label>
+          <input
+            type="email"
+            name="name"
+            class="form-control"
+            id="exampleInputEmail1"
+            (change)="onNameChanged($event)"
+            placeholder="Enter Name"
+            ngModel
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputFile">Upload Image</label>
+          <div class="input-group">
+            <div class="custom-file">
+              <input
+                type="file"
+                class="custom-file-input"
+                id="exampleInputFile"
+                name="banner_image"
+                ngModel
+                (change)="onImageChanged($event)"
+              />
+              <label class="custom-file-label" for="exampleInputFile"
+                >Choose file</label
+              >
+            </div>
+            <div class="input-group-append">
+              <span class="input-group-text" id="">Upload</span>
+            </div>
+          </div>
+          <br />
+          <div class="form-group" #fgName="ngModelGroup" ngModelGroup="Des">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Description</label>
+              <input
+                type="email"
+                name="description"
+                class="form-control"
+                ngModel
+                id="description"
+                placeholder="Enter Name"
+                (change)="onDesChanged($event)"
+              />
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Price</label>
+              <input
+                type="email"
+                name="price"
+                class="form-control"
+                ngModel
+                id="price"
+                placeholder="Enter Name"
+                (change)="onPriceChanged($event)"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Offer price</label>
+            <input
+              type="email"
+              name="offer-price"
+              class="form-control"
+              ngModel
+              id="offer-price"
+              placeholder="Enter Name"
+              (change)="onDiscountChanged($event)"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Category</label>
+            <select
+              class="form-control select2 select2-hidden-accessible"
+              style="width: 100%"
+              data-select2-id="1"
+              tabindex="-1"
+              aria-hidden="true"
+              (change)="onSelectChange($event)"
+            >
+              <option selected="Please Select the option" data-select2-id="1 ">
+                Please Select the option
+              </option>
+              <option data-select2-id="3 " value="Nose">Nose Accessories</option>
+              <option data-select2-id="face" value="Forehead">Forehead</option>
+              <option data-select2-id="31" value="Eye">
+                Eye Accessories
+              </option>
+              <option data-select2-id="32" value="Ear">Ear Accessories</option>
+              <option data-select2-id="3 " value="Nose">Arm Accessories</option>
+              <option data-select2-id="" value="Hand">Wrist Accessories</option>
+              <option data-select2-id="" value="Eye">
+                Hip Accessories
+              </option>
+              <option data-select2-id="32" value="Ear">Masonary Accessories</option>
+              <option data-select2-id="3 " value="Nose">Toe Accessories</option>
+              <option data-select2-id="face" value="Forehead">Ankle Accessories</option>
+              <option data-select2-id="31" value="Eye">
+                Floral Accessories
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+
+      <div class="card-footer">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          (click)="upload()"
+          [disabled]="buttonboool === true ? true : false"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div> -->
+
+<!-- <div class="wrapper">
+  <h3>Angular 8 Show Image Preview Before Uploading</h3>
+
+  <form [formGroup]="uploadForm" (ngSubmit)="submit()">
+    
+    <input type="file" accept="image/*" (change)="showPreview($event)" />
+
+    
+    <div class="imagePreview" *ngIf="imageURL && imageURL !== ''">
+      <img width="90px" [src]="imageURL" [alt]="uploadForm.value.name">
+    </div>
+
+    
+    <input formControlName="name" placeholder="Enter name">
+
+    <button type="submit">Submit</button>
+  </form>
+
+</div> -->
+
+<nav class="navbar navbar-light bg-primary">
+  <div class="container-fluid">
+    <h1 style="text-decoration-color: aliceblue">Add/Create Products</h1>
+    <div class="d-flex">
+      <button
+        type="button"
+        (click)="clickAddProduct()"
+        data-toggle="modal"
+        data-target="#exampleModal"
+        class="btn btn success"
+      >
+        Add
+      </button>
+    </div>
+  </div>
+</nav>
+
+<table class="table mt-3">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <!-- <th scope="col">Upload Image</th> -->
+      <th scope="col">Description</th>
+      <th scope="col">Price</th>
+      <th scope="col">Offer Price</th>
+      <th scope="col">Category</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of allproductData">
+      <td>{{row.name}}</td>
+      <td>{{row.description}}</td>
+      <td>{{row.price}}</td>
+      <td>{{row.offerprice}}</td>
+      <td>{{row.category}}</td>
+      <!-- <td>{{row.id}}</td> -->
+      <td>
+        <button class="btn btn-info" data-toggle="modal"
+        data-target="#exampleModal" (click)="onEdit(row)">Edit</button>
+        <button class="btn btn-danger mx-3" (click)='deleteProduct(row)'>Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Button trigger modal -->
+<!-- Modal -->
+
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create Product</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form role="form" #uploadbannerform="ngForm" [formGroup]="formValue">
+          <div class="card-body">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Name</label>
+
+              <input
+                type="text"
+                formControlName="name"
+                required
+                class="form-control"
+                id="exampleInputEmail1"
+                ngModel
+                (change)="onNameChanged($event)"
+                placeholder="Enter Name"
+                
+                
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputFile">Upload Image</label>
+              <div class="input-group">
+                <div class="custom-file">
+                  <input
+                    required
+                    accept="image/*"
+                    type="file"
+                    class="custom-file-input"
+                    id="exampleInputFile"
+                    name="banner"
+                    #BannerImg="ngModel" ngModel (change)="onFileSelect($event)">
+                  <label class="custom-file-label" for="exampleInputFile"></label>
+                </div>
+                <div class="input-group-append">
+                  <span class="input-group-text" id="">Upload</span>
+                </div>
+              </div>
+            </div>
+
+            <br />
+
+            <div class="form-group">
+              <label for="exampleInputEmail1">Description</label>
+
+              <input
+                type="text"
+                formControlName="description"
+                required
+                class="form-control"
+                
+                placeholder="Enter Name"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputEmail1">Price</label>
+
+              <input
+                type="number"
+                formControlName="price"
+                required
+                class="form-control"
+                
+                placeholder="Enter Price"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputEmail1">Offer-Price</label>
+
+              <input
+                type="number"
+                formControlName="offerprice"
+                required
+                class="form-control"
+                
+                placeholder="Enter discount price"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>Category</label>
+              <select
+                class="form-control select2 select2-hidden-accessible"
+                style="width: 100%"
+                data-select2-id="1"
+                tabindex="-1"
+                aria-hidden="true"
+               
+                formControlName="category"
+              >
+                <option
+                  selected="Please Select the option"
+                  data-select2-id="1 "
+                >
+                  Please Select the option
+                </option>
+                <option  value="Nose accessories">
+                  Nose accessories
+                </option>
+                <option  value="Forehead accessories">
+                  Forehead accessories
+                </option>
+                <option  value="Eye accessories">
+                  Eye accessories
+                </option>
+                <option  value="Ear accessories">
+                  Ear accessories
+                </option>
+                <option  value="Hand accessories">
+                  Hand accessories
+                </option>
+                <option  value="Finger accessories">
+                  Finger accessories
+                </option>
+                <option  value="Arm accessories">
+                  Arm accessories
+                </option>
+                <option  value="Wrist accessories">
+                  Wrist accessories
+                </option>
+                <option  value="Hip accessories">
+                  Hip accessories
+                </option>
+                <option  value="Masonry accessories">
+                  Masonry accessories
+                </option>
+                <option  value="Toe accessories">
+                  Toe accessories
+                </option>
+                <option  value="Ankle accessories">
+                 Ankle accessories
+                </option>
+                <option  value="Floral accessories">
+                  Floral accessories
+                 </option>
+              </select>
+            </div>
+          </div>
+
+          <!-- /.card-body  [disabled]="buttonboool===true ? true : false"-->
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cancel" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+        <button
+          type="button"
+          (click)="postProductDetails()"
+          *ngIf="showCreate"
+          class="btn btn-primary">Create</button>
+        <button
+          type="button"
+          (click)="editProductDetails()"
+          *ngIf="showUpdate"
+          class="btn btn-primary">Update</button>
+      </div>
+    </div>
+  </div>
+</div>

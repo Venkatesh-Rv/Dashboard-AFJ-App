@@ -1,0 +1,32 @@
+{
+  "posts": [
+    {
+      "id": 3,
+      "name": "qwertytwo",
+      "description": "testingtwo",
+      "price": 222,
+      "offerprice": 200,
+      "category": "Fashion"
+    },
+    {
+      "id": 4,
+      "name": "qwertyqwe",
+      "description": "necklace",
+      "price": 123,
+      "offerprice": 1222,
+      "category": "Fashion"
+    },
+    {
+      "id": 2,
+      "name": "qwerty",
+      "description": "qwerty",
+      "price": 456,
+      "offerprice": 300,
+      "category": "Cosmetics"
+    }
+  ],
+  "comments": [],
+  "profile": {
+    "name": "typicode"
+  }
+}
