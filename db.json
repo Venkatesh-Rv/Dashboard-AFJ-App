@@ -2,11 +2,12 @@
   "posts": [
     {
       "id": 3,
+      "image":"https://cdn.urlencoder.org/assets/images/url-fb.png",
       "name": "qwertytwo",
       "description": "testingtwo",
       "price": 222,
       "offerprice": 200,
-      "category": "Fashion"
+      "category": "Fashion accessories"
     },
     {
       "id": 4,

@@ -20,6 +20,7 @@ import { AcessoriesComponent } from './datatable/acessories/acessories.component
 import { LoaderComponent } from './core/loader/loader.component';
 import { CreateproductComponent } from './createproduct/createproduct.component';
 import { BannerComponent } from './banner/banner.component';
+import { EditProductComponent } from './edit-product/edit-product.component';
 
 const routes = [
   { path: '', component: LoginComponent },
@@ -49,6 +50,7 @@ const routes = [
     LoaderComponent,
     CreateproductComponent,
     BannerComponent,
+    EditProductComponent,
 
 
   ],
@@ -59,6 +61,7 @@ const routes = [
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
+    // ,{ scrollPositionRestoration: 'enabled' ,anchorScrolling:'enabled'}
 
     ToastrModule.forRoot({
       timeOut: 10000,

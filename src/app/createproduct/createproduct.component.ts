@@ -25,12 +25,15 @@ export class CreateproductComponent implements OnInit {
 
   //
   imageURL: string;
+  imgName: string = 'Upload Image'
   formValue: FormGroup;
   productModelObj : ProductModel = new ProductModel();
   allproductData:any;
   showCreate:boolean;
   showUpdate:boolean;
 
+  objprod: any = {}
+ getid:number
   constructor(private http: HttpClient, private postMethod: PostService,
      private successmsg: SucesslogginggService, private fb: FormBuilder) { 
     // Reactive Form
@@ -64,13 +67,14 @@ export class CreateproductComponent implements OnInit {
 
   onFileSelect(event) {
 
-    this.cover = (event.target as HTMLInputElement).files[0];
-    console.log(this.cover)
+    this.cover = event.target.files[0];
+    console.log(this.cover);
+    this.imgName = this.cover.name
 
     // const file=(event.target as HTMLInputElement).files[0];
-    this.formValue.patchValue({
-      sampleFile: this.cover
-    });
+    // this.formValue.patchValue({
+    //   sampleFile: this.cover
+    // });
     // this.formValue.get('sampleFile').updateValueAndValidity();
   }
 
@@ -97,26 +101,32 @@ export class CreateproductComponent implements OnInit {
     this.chooseswitch(this.selectCat);
   }
 
-  upload() {
+  create() {
     const uploadData = new FormData();
     uploadData.append('name', this.name);
     console.log(this.description)
 
     console.log(this.changeporperty);
+    console.log(this.selectCat)
 
-    uploadData.append(`${this.changeporperty}_cosmetics_image`, this.cover, this.cover.name);
+    // uploadData.append(`${this.changeporperty}_cosmetics_image`, this.cover, this.cover.name);
+    uploadData.append('image', this.cover);
     uploadData.append('description ', JSON.stringify(this.description));
     uploadData.append('price', this.price);
-    uploadData.append('weight', this.Discount);
+    uploadData.append('offer', this.Discount);
     uploadData.append('category', this.selectCat);
 
     this.loaderbool = true;
 
-    this.postMethod.postData(`http://ec2-13-232-92-217.ap-south-1.compute.amazonaws.com/${this.selectCat}/create/`, uploadData).subscribe(ele => this.successmsg.SuccessLog(ele, 'acessoriestabel'))
-
+    this.postMethod.postData(`http://ec2-13-232-92-217.ap-south-1.compute.amazonaws.com/product/create/`, uploadData)
+    .subscribe(ele => this.successmsg.SuccessLog(ele, 'acessoriestabel')
+    ,error => {
+      this.loaderbool=false;
+      alert('Please enter the details correctly!!')
+      })
 
   }
-
+ 
   //
 
   clickAddProduct(){
@@ -127,7 +137,7 @@ export class CreateproductComponent implements OnInit {
 
   postProductDetails(){
     this.productModelObj.name = this.formValue.value.name;
-    this.productModelObj.image = this.formValue.value.get("sampleFile").value;
+    // this.productModelObj.image = this.formValue.value.get("sampleFile").value;
     this.productModelObj.description = this.formValue.value.description;
     this.productModelObj.price = this.formValue.value.price;
     this.productModelObj.offerprice = this.formValue.value.offerprice;
@@ -148,6 +158,7 @@ export class CreateproductComponent implements OnInit {
 
   getAllProduct(){
     this.postMethod.getProduct().subscribe(res=>{
+      console.log(res)
       this.allproductData =res;
     })
   }
@@ -160,6 +171,49 @@ export class CreateproductComponent implements OnInit {
     })
   }
 
+  onNameChangededit(event: any) {
+
+    this.name = event.target.value;
+    console.log(this.name)
+
+  }
+
+  onFileSelectedit(event) {
+
+    this.cover = event.target.files[0];
+    console.log(this.cover);
+    this.imgName = this.cover.name
+
+    // const file=(event.target as HTMLInputElement).files[0];
+    // this.formValue.patchValue({
+    //   sampleFile: this.cover
+    // });
+    // this.formValue.get('sampleFile').updateValueAndValidity();
+  }
+
+
+  onDesChangededit(event) {
+    this.description.des = event.target.value;
+  }
+
+
+  onPriceChangededit(event) {
+    this.price = event.target.value;
+  }
+
+
+  onDiscountChangededit(event) {
+    this.Discount = event.target.value;
+  }
+
+
+  onSelectChangeedit(event) {
+    this.selectCat = event.target.value;
+    console.log(this.selectCat);
+    this.buttonboool = false
+    this.chooseswitch(this.selectCat);
+  }
+
   onEdit(row:any){
     this.showCreate = false;
     this.showUpdate = true;
@@ -169,7 +223,48 @@ export class CreateproductComponent implements OnInit {
     this.formValue.controls['price'].setValue(row.price);
     this.formValue.controls['offerprice'].setValue(row.offerprice);
     this.formValue.controls['category'].setValue(row.category);
+    this.update(this.productModelObj.id)
   }
+
+  update(id){
+    this.postMethod.getProduct().subscribe(ele => {
+  
+      ele.forEach(ele => {
+  
+        if (ele.id === id) {
+          console.log('hello')
+          this.objprod = ele
+          console.log(this.objprod)
+  
+        }
+        return
+      })
+  
+    })
+    console.log(this.objprod)
+   }
+
+
+   submitedit(){
+    const editData = new FormData();
+    editData.append('name', this.name);
+    console.log(this.description)
+
+    console.log(this.changeporperty);
+    console.log(this.selectCat)
+
+    // uploadData.append(`${this.changeporperty}_cosmetics_image`, this.cover, this.cover.name);
+    // editData.append('image', this.cover);
+    editData.append('description ', JSON.stringify(this.description));
+    editData.append('price', this.price);
+    editData.append('offer', this.Discount);
+    editData.append('category', this.selectCat);
+
+    for (var value of editData.values()) {
+      console.log(value);
+   }
+   }
+
 
   editProductDetails(){
     this.productModelObj.name = this.formValue.value.name;

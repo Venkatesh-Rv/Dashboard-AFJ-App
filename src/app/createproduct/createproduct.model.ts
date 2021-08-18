@@ -7,3 +7,14 @@ export class ProductModel {
     offerprice: string = '';
     category: string = '';
 }
+
+// export interface ProductModel {
+//     id?: number ;
+//     name: string ;
+//     // image:File;
+//     description: string ;
+//     price: string;
+//     offerprice: string ;
+//     category: string ;
+// }
+

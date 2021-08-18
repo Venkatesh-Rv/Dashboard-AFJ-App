@@ -106,9 +106,9 @@
               <option selected="Please Select the option" data-select2-id="1 ">
                 Please Select the option
               </option>
-              <option data-select2-id="3 " value="Cosmetics">Top Banner</option>
+              <option data-select2-id="3 " value="Cosmetics">Cosmetics</option>
               <option data-select2-id="face" value="Fashion">
-                Bottom Banner
+                Fashion
               </option>
             </select>
           </div>
@@ -161,7 +161,7 @@
       <button
         type="button"
         class="btn btn-outline-dark"
-        (click)="uploadBanner()"
+        (click)="uploadBanner();modal.dismiss('Cross click')"
       >
         Save
       </button>
