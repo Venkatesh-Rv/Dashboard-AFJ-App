@@ -11,6 +11,7 @@ import { FileDirective } from './directives/file.directive';
 
 import { ToastrModule } from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgxPaginationModule} from 'ngx-pagination';
 import { PostService } from "./services/post.service"
 import { SucesslogginggService } from "./services/sucessloggingg.service"
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -60,6 +61,7 @@ const routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgxPaginationModule,
     RouterModule.forRoot(routes),
     // ,{ scrollPositionRestoration: 'enabled' ,anchorScrolling:'enabled'}
 

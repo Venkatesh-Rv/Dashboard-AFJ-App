@@ -24,6 +24,7 @@ export class UploadbannerComponent implements OnInit {
   closeResult = '';
 
   cover: File;
+  reader = new FileReader();
   imgName: string = 'Upload Image'
   description: any = {};
   price: string;
@@ -63,9 +64,10 @@ private getDismissReason(reason: any): string {
   }
 
   onImageChanged(event) {
-
+    
     this.cover = event.target.files[0];
-    console.log(this.cover);
+    this.reader.readAsDataURL(event.target.files[0])
+    console.log(this.reader);
     this.imgName = this.cover.name
   }
 
@@ -120,7 +122,7 @@ private getDismissReason(reason: any): string {
   //     console.log(i);
   //  }
     this.postMethod.postData(`http://ec2-13-232-92-217.ap-south-1.compute.amazonaws.com/product/banner/create/`, uploadData).subscribe(ele => {
-      this.successmsg.SuccessLog(ele, 'Cosmetictabel')
+      this.successmsg.SuccessLog(ele, 'banner')
 
     },error => {
       this.loaderbool=false;

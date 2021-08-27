@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from "@angular/forms";
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient } from '@angular/common/http';
 import { PostService } from '../services/post.service';
 import { SucesslogginggService } from "../services/sucessloggingg.service"
@@ -22,6 +23,7 @@ export class CreateproductComponent implements OnInit {
   selectCat: string;
   changeporperty: string;
   buttonboool: boolean = true;
+  closeResult = '';
 
   //
   imageURL: string;
@@ -35,7 +37,8 @@ export class CreateproductComponent implements OnInit {
   objprod: any = {}
  getid:number
   constructor(private http: HttpClient, private postMethod: PostService,
-     private successmsg: SucesslogginggService, private fb: FormBuilder) { 
+     private successmsg: SucesslogginggService, private fb: FormBuilder,
+     private modalService: NgbModal) { 
     // Reactive Form
     // this.uploadForm = this.fb.group({
     //   avatar: [null],
@@ -223,6 +226,7 @@ export class CreateproductComponent implements OnInit {
     this.formValue.controls['price'].setValue(row.price);
     this.formValue.controls['offerprice'].setValue(row.offerprice);
     this.formValue.controls['category'].setValue(row.category);
+    console.log(this.productModelObj.id)
     this.update(this.productModelObj.id)
   }
 
@@ -244,7 +248,7 @@ export class CreateproductComponent implements OnInit {
     console.log(this.objprod)
    }
 
-
+//product edit
    submitedit(){
     const editData = new FormData();
     editData.append('name', this.name);
@@ -263,6 +267,15 @@ export class CreateproductComponent implements OnInit {
     for (var value of editData.values()) {
       console.log(value);
    }
+
+  //  this.loaderbool = true;
+
+  //   this.postMethod.postData(`http://ec2-13-232-92-217.ap-south-1.compute.amazonaws.com/product/create/`, uploadData)
+  //   .subscribe(ele => this.successmsg.SuccessLog(ele, 'acessoriestabel')
+  //   ,error => {
+  //     this.loaderbool=false;
+  //     alert('Please enter the details correctly!!')
+  //     })
    }
 
 
@@ -309,6 +322,24 @@ export class CreateproductComponent implements OnInit {
 
     }
 
+  }
+
+  open(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
    // Image Preview
