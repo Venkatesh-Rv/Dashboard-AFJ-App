@@ -248,7 +248,7 @@
         <!--*ngIf="showCreate"-->
         <button
           type="button"
-          (click)="create()"
+          data-toggle="modal" data-target="#preview"
           *ngIf="showCreate"
           class="btn btn-primary">Create</button>
           <!--*ngIf="showUpdate"-->
@@ -425,6 +425,32 @@
   
 </ng-template>
 
+<!--Second modal for preview-->
+
+<div class="modal fade" id="preview" tabindex="-1" role="dialog" aria-labelledby="previewLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="previewLabel">Preview</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <figure>
+          <img src="{{reader.result}}" class="img-fluid img-thumbnail">
+          <figcaption>{{name}}</figcaption>
+          <span class="span old">&#8377;{{price}}</span>
+          <span class="price">&#8377;{{Discount}}</span>
+        </figure>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)=" create()">Create</button>
+      </div>
+    </div>
+  </div>
+</div>
 </div> 
 
 

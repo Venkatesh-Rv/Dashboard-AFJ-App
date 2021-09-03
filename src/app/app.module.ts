@@ -24,8 +24,8 @@ import { BannerComponent } from './banner/banner.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 
 const routes = [
-  { path: '', component: LoginComponent },
-  { path: 'uploadbanner', component: UploadbannerComponent },
+  { path: 'login', component: LoginComponent },
+  { path: '', component: UploadbannerComponent },
   { path: 'banner', component: BannerComponent },
   {path: 'Addprod', component: CreateproductComponent },
 

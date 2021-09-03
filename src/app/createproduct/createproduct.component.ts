@@ -16,6 +16,7 @@ export class CreateproductComponent implements OnInit {
 
   name: string;
   cover: File;
+  reader = new FileReader();
   description: any = {};
   loaderbool: boolean = false;
   price: string;
@@ -71,6 +72,8 @@ export class CreateproductComponent implements OnInit {
   onFileSelect(event) {
 
     this.cover = event.target.files[0];
+    this.reader.readAsDataURL(event.target.files[0])
+    console.log(this.reader);
     console.log(this.cover);
     this.imgName = this.cover.name
 
@@ -186,6 +189,7 @@ export class CreateproductComponent implements OnInit {
     this.cover = event.target.files[0];
     console.log(this.cover);
     this.imgName = this.cover.name
+    
 
     // const file=(event.target as HTMLInputElement).files[0];
     // this.formValue.patchValue({
@@ -331,6 +335,8 @@ export class CreateproductComponent implements OnInit {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
+
+  
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
